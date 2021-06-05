@@ -52,7 +52,6 @@ gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([
   1.0, -1.0,
 ]), gl.STATIC_DRAW);
 
-const u = Float32Array.BYTES_PER_ELEMENT;
 const pos = gl.getAttribLocation(program, 'pos');
 gl.enableVertexAttribArray(pos);
 gl.vertexAttribPointer(pos, 2, gl.FLOAT, false, 0 ,0);
