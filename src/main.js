@@ -1,6 +1,8 @@
 import vertexShader from "./shaders/shader.vs";
 import fragmentShader from "./shaders/shader.fs";
 
+const QUALITY_FACTOR = 0.5;
+
 const error = document.getElementById("error");
 
 const canvas = document.getElementById("canvas");
@@ -55,8 +57,8 @@ const timeLoc = gl.getUniformLocation(program, 'time');
 const startTime = new Date().getTime();
 
 const updateResolution = () => {
-  canvas.height = window.innerHeight;
-  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight * QUALITY_FACTOR;
+  canvas.width = window.innerWidth * QUALITY_FACTOR;
   gl.viewport(0, 0, canvas.width, canvas.height);
   gl.uniform2f(resolutionLoc, canvas.width, canvas.height);
 };
@@ -65,7 +67,10 @@ updateResolution();
 
 let mouse = [0.5, 0.5];
 const updateMousePos = (e) => {
-  mouse = [e.offsetX / canvas.width, 1 - e.offsetY / canvas.height];
+  mouse = [
+    e.offsetX / canvas.width * QUALITY_FACTOR,
+    1 - e.offsetY / canvas.height * QUALITY_FACTOR
+  ];
 };
 window.addEventListener('mousemove', updateMousePos);
 
