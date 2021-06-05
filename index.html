@@ -7,14 +7,14 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Shader playground</title>
   <style>
-body { margin: 0 }
-#canvas { position: absolute; height: 100vh; width: 100vw; }
+* { margin: 0 }
+#canvas { position: absolute; height: 100vh; width: 100vw; z-index: 1; }
   </style>
 </head>
 
 <body>
   <canvas id="canvas"></canvas>
-  <div id="error"></div>
+  <pre id="log"></pre>
   <script src="dist/bundle.js"></script>
 </body>
 

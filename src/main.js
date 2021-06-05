@@ -3,36 +3,42 @@ import fragmentShader from "./shaders/shader.fs";
 
 const QUALITY_FACTOR = 0.5;
 
-const error = document.getElementById("error");
+const log = document.getElementById("log");
 
 const canvas = document.getElementById("canvas");
 const gl = canvas.getContext("webgl") || canvas.getContext("experimental-webgl");
 
+log.append("Compiling (vertex shader) ...");
 const compiledVertexShader = gl.createShader(gl.VERTEX_SHADER);
 gl.shaderSource(compiledVertexShader, vertexShader);
 gl.compileShader(compiledVertexShader);
 if (!gl.getShaderParameter(compiledVertexShader, gl.COMPILE_STATUS)) {
-  error.append(gl.getShaderInfoLog(compiledVertexShader));
+  log.append("\n" + gl.getShaderInfoLog(compiledVertexShader));
   throw "compile error";
 }
+log.append(" Done.\n");
 
+log.append("Compiling (fragment shader) ...");
 const compiledFragmentShader = gl.createShader(gl.FRAGMENT_SHADER);
 gl.shaderSource(compiledFragmentShader, fragmentShader);
 gl.compileShader(compiledFragmentShader);
 if (!gl.getShaderParameter(compiledFragmentShader, gl.COMPILE_STATUS)) {
-  error.append(gl.getShaderInfoLog(compiledFragmentShader));
+  log.append("\n" + gl.getShaderInfoLog(compiledFragmentShader));
   throw "compile error";
 }
+log.append(" Done.\n");
 
+log.append("Linking ...");
 const program = gl.createProgram();
 gl.attachShader(program, compiledVertexShader);
 gl.attachShader(program, compiledFragmentShader);
 gl.linkProgram(program);
 gl.useProgram(program);
 if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
-  error.append(gl.getProgramInfoLog(program));
+  log.append("\n" + gl.getProgramInfoLog(program));
   throw "link error";
 }
+log.append(" Done.\n");
 
 const vertices = gl.createBuffer();
 gl.bindBuffer(gl.ARRAY_BUFFER, vertices);
