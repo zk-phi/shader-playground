@@ -86,10 +86,15 @@ const resetMousePos = () => {
 window.addEventListener('mousemove', updateMousePos);
 window.addEventListener('mouseout', resetMousePos);
 
+let throttle = false;
 const render = () => {
-  gl.uniform1f(timeLoc, (new Date().getTime() - startTime) / 1000);
-  gl.uniform2fv(mouseLoc, mouse)
-  gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+  if (!throttle) {
+    gl.uniform1f(timeLoc, (new Date().getTime() - startTime) / 1000);
+    gl.uniform2fv(mouseLoc, mouse)
+    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+    gl.flush();
+  }
+  throttle = !throttle;
   window.requestAnimationFrame(render);
 };
 render();
