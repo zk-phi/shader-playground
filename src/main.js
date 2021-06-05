@@ -78,7 +78,11 @@ const updateMousePos = (e) => {
     1 - e.offsetY / canvas.height * QUALITY_FACTOR
   ];
 };
+const resetMousePos = () => {
+  mouse = [0.5, 0.5];
+};
 window.addEventListener('mousemove', updateMousePos);
+window.addEventListener('mouseout', resetMousePos);
 
 const render = () => {
   gl.uniform1f(timeLoc, (new Date().getTime() - startTime) / 1000);
