@@ -8,6 +8,9 @@ const log = document.getElementById("log");
 const canvas = document.getElementById("canvas");
 const gl = canvas.getContext("webgl") || canvas.getContext("experimental-webgl");
 
+gl.getExtension('OES_standard_derivatives');
+gl.getExtension('EXT_shader_texture_lod');
+
 log.append("Compiling (vertex shader) ...");
 const compiledVertexShader = gl.createShader(gl.VERTEX_SHADER);
 gl.shaderSource(compiledVertexShader, vertexShader);
